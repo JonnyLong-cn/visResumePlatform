@@ -5,35 +5,59 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const devConfig = {
   mode: 'development',
-  // 入口
   entry: {
-    index: path.resolve(__dirname, '../app/renderer/app.jsx'),
+    // 对应渲染进程的app.tsx入口文件
+    index: path.resolve(__dirname, '../app/renderer/app.tsx'),
   },
-  // 出口
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, '../dist'),
   },
-  // 针对electron渲染进程
   target: 'electron-renderer',
   devtool: 'inline-source-map',
-  // 配置本地开发devServer
   devServer: {
     contentBase: path.join(__dirname, '../dist'),
     compress: true,
-    host: '127.0.0.1', // webpack-dev-server启动时要指定ip，不能直接通过localhost启动，不指定会报错
-    port: 7001, // 启动端口为 7001 的服务
+    // webpack-dev-server启动时要指定ip，不能直接通过localhost启动，不指定会报错
+    host: '127.0.0.1',
+    port: 7001,
     hot: true,
   },
-  // 通过HtmlWebpackPlugin自动生成一份以/app/renderer/index.html为模版的HTML文件
   plugins: [
+    // 在dist目录下生成index.html文件
     new HtmlWebpackPlugin({
-      // 👇 以此文件为模版，自动生成 HTML
+      // 模版文件
       template: path.resolve(__dirname, '../app/renderer/index.html'),
+      // 通过模版文件生成的index.html文件
       filename: path.resolve(__dirname, '../dist/index.html'),
       chunks: ['index'],
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+      {
+        test: /\.less$/,
+        exclude: /node_modules/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]__[hash:base64:5]',
+              },
+            },
+          },
+          'postcss-loader',
+          'less-loader',
+        ],
+      },
+    ],
+  }
 };
-// 合并导出一份完整配置
+
 module.exports = webpackMerge.merge(baseConfig, devConfig);
