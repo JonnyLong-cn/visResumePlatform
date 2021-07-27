@@ -1,0 +1,36 @@
+{
+  "name": "visresumeplatform",
+  "version": "1.0.0",
+  "description": "从0到1实现一款轻巧到可视化简历编辑平台",
+  "main": "./app/main/electron.js",
+  "scripts": {
+    "start:main": "electron ./app/main/electron.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "龙征宇",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "electron": "^13.1.7",
+    "html-webpack-plugin": "^4.3.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  }
+}
