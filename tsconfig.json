@@ -14,10 +14,17 @@
     "esModuleInterop": true /* es6的模块化和非es6的模块化标准互通 */,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    // webpack 配置别名，但在TS中会报红找不到，所以tslint也需要配置
     "paths": {
       "@src/*": [
         "./app/renderer/*"
-      ] // webpack 配置别名，但在TS中会报红找不到，所以tslint也需要配置
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@common/*": [
+        "./app/renderer/common/*"
+      ]
     },
     "moduleResolution": "node"
   },
@@ -25,7 +32,7 @@
     // 这里需要排除掉 dist 目录和 node_modules 目录，不进行检查
     "dist",
     "node_modules"
-  ], 
+  ],
   "include": [
     "app/**/*.ts",
     "app/**/*.tsx",
